@@ -1,0 +1,75 @@
+$def with (content)
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+
+<link rel="stylesheet" type="text/css" href="/static/css/stylesheet.css" media="screen" />
+<link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon">
+
+<title>$content.get('title')</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+</head>
+<body>
+
+<div class="wrapper">
+  <ul>
+
+	<li id="x"><a href="#x"></a>
+	</li>
+
+	<li id="a"><a href="/technology/10#a">技术</a>
+		<div>
+			<a href="/technology/10101#a">设计</a> | <a href="/technology/10102#a">编程语言</a> | <a href="/technology/10103#a">database</a> 
+			<hr/>
+			 
+		 </div>
+	</li>
+	<li id="b"><a href="/think/20#b">思维</a>
+		<div>
+
+			<a href="/think/20101#b">how to think</a>  | <a href="/think/20102#b">人生的学问</a> 
+			<hr/>
+
+
+		</div>
+	</li>
+	<li id="c"><a href="/startup/30#c">startup</a>
+		<div>
+			<a href="/startup/30101#c">计算广告</a> | <a href="/startup/30102#c">O2O</a>
+			<hr/>
+		</div>
+	</li>
+
+	<li id="d"><a href="#d"></a>
+	</li>
+
+	<li id="e"><a href="#e"></a>
+	</li>
+
+	<li id="y"><a href="#"></a>
+	</li>
+
+  </ul>
+</div>
+
+<header>
+<div class="inner">
+<h2 ><a href="http://www.raintoo.cn">润土-用技术与世界交流</a></h2>
+<h3>  </h3>
+</div>
+
+</header>
+
+<div id="content-wrapper">
+<div class="inner clearfix">
+
+
+$:content
+
+</div>
+</div>
+
+</body>
+</html>

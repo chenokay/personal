@@ -1,0 +1,41 @@
+$def with (rows, page)
+
+$def tr(values):
+    <tr>
+    $for ele in values:
+        <td class="fl_g" width="30%" style="width:300px;" align="center">
+        <dt><a href=$ele['link']><img src=$ele['img'] align="center" alt="" /></a></dt>
+        <dt><a href=$ele['link'] align="center"><p class="dec" align="center">$ele['desc']</a></dt>
+        </td>
+    </tr>
+
+$def table(rows):
+    $for row in rows:
+        <table>
+        $:row
+        </table>
+
+$:table([tr(d) for d in rows])
+
+<script>
+   <!--
+   function goto_page() {
+	   var v = document.getElementById("go").value
+	   if(v==''){
+		   return false;
+	   }
+	   window.location = '?page=' + v;
+   }
+   -->
+</script>
+
+
+<div style="float:left;">
+<div class="pagination">
+	<a href="?page=${page-1}">«</a> <a href="?page=$page">$page</a> <a href="?page=${page+1}">${page+1}</a> <a href="?page=${page+2}">${page+2}</a> <a href="?page=${page+3}">»</a></div>
+</div>
+
+<div style="float:left;padding:2px 5px 0px 5px"> 到第 <input name="go" id="go" style="border:#FF6699 solid 1px;" type="text" size="4" /> 页</div>
+<div style="float:left;padding:0px 5px 0px 5px"><input name="gobtn" type="button" value="确定" onclick="goto_page();" /></div>
+<div class="clear"></div>
+

@@ -1,0 +1,22 @@
+create table product (
+		id bigint auto_increment,
+		product_name text default "",
+		product_img char(255) default "",
+		product_link text default "",
+		category int default 0,
+		status int default 0,
+		static_weight int default 0,
+		dynamic_weight int default 0,
+		dt int default 0,
+		primary key(id)
+		) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+
+create table product_sub_category (
+		product_id bigint ,
+		sub_category int default 0,
+		primary key(product_id, sub_category),
+		CONSTRAINT FOREIGN KEY (product_id) REFERENCES product(id) on delete RESTRICT  ON UPDATE CASCADE
+		) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+
+
+

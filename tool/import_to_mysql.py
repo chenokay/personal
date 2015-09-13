@@ -31,7 +31,7 @@ class ImportMysql:
 
         while line:
             items = line.split('####')
-            if len(items) < 7:
+            if len(items) != 6:
                 print 'product line format error:%s' %(line)
                 continue
             ts=int(time.time())
@@ -41,8 +41,8 @@ class ImportMysql:
             field_dict['dt'] = timestamp
             field_dict['product_name'] = '\'' + items[1] + '\''
             field_dict['product_link'] = '\'' +items[0]+ '\''
-            field_dict['product_img'] = '\'' +items[5]+ '\''
-            field_dict['static_weight'] = items[6].strip()
+            field_dict['product_img'] = '\'' +items[4]+ '\''
+            field_dict['static_weight'] = items[5].strip()
             if items[2] in self.tag_dict:
                 field_dict['category'] = self.tag_dict[items[2]]
             else:
@@ -63,16 +63,6 @@ class ImportMysql:
                 else:
                     print 'NULL_sub_category :%s does not exist' %(sc)
 
-            style = items[4]
-            style_vec = style.split('*')
-
-            for st in style_vec:
-                if st in self.tag_dict:
-                    sub_sql = 'insert into product_style(product_id, style) values(LAST_INSERT_ID(), %s)' %(self.tag_dict[st])
-                    sql_vec.append(sub_sql)
-                else:
-                    print 'NULL_style :%s does not exist' %(st)
-
             print ';'.join(sql_vec)
 
             line = sys.stdin.readline()
@@ -81,4 +71,4 @@ class ImportMysql:
 
 if __name__ == '__main__':
     import_mysql = ImportMysql()
-    import_mysql.run('/root/webpy-skeleton/mysql/category_tag')
+    import_mysql.run('/root/personal/mysql/category_tag')

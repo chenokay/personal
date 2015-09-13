@@ -210,6 +210,7 @@ class Tech:
             cur_num = cur_num + 1
 
         if len(view_row) !=  0:
+            print view_row
             matrix.append(view_row)
 
         return render.technology(matrix, int(page))

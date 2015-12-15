@@ -12,10 +12,11 @@ import json
 import time
 import datetime
 import data_read
+import string
+import random
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
-
 
 VERSION = "0.0.1"
 
@@ -62,24 +63,51 @@ t_globals['app_version'] = lambda: VERSION + ' - ' + config.env
 t_globals['flash_messages'] = flash_messages
 t_globals['render'] = lambda t, *args: render._template(t)(*args)
 
-class static_get:
+class Common:
+    def notice_log(self, path, param):
+        ts=int(time.time())
+        d = datetime.datetime.fromtimestamp(ts)
+        timestamp = d.strftime("%Y-%m-%d %H:%M:%S")
+
+        cookie_value = self.get_cookie()
+
+        config.logger.info("[%s][%s][%s][%s][%s]" %(timestamp, self.ip, cookie_value, path, param))
+
+    def generate_id(self):
+        l = [str(x) for x in string.digits]
+        random.shuffle(l)
+        return ''.join(l)
+
+    def set_cookie(self):
+        c_n = 'c_raintoo'
+        c_v = self.generate_id()
+        web.setcookie(c_n, c_v)
+        return c_v
+
+    def get_cookie(self):
+        c=web.cookies(c_raintoo='000')
+        c_v = c.c_raintoo
+        if c_v == '000':
+            c_v = self.set_cookie()
+            config.logger.info('set_cookie:%s', c_v)
+        else:
+            config.logger.info('get_cookie:%s', c_v)
+
+        return c_v
+
+class static_get(Common):
     def GET(self, file):
+        cookie_value = self.get_cookie()
+        config.logger.info('user:%s access file:%s', cookie_value, file)
         web.seeother('/static/'+file)
 
-class Startup:
+class Startup(Common):
     def __init__(self):
 
         self.ip = '127.0.0.1'
 
         #self.product_db = ProductDb()
 
-    def notice_log(self, path, param):
-        ts=int(time.time())
-        d = datetime.datetime.fromtimestamp(ts)
-        timestamp = d.strftime("%Y-%m-%d %H:%M:%S")
-
-        config.logger.info("[%s][%s][%s][%s]" %(timestamp, self.ip, path, param))
-        
     def GET(self):
         #flash("success", """Welcome! Application code lives in app.py,
         #models in model.py, tests in test.py, and seed data in seed.py.""")
@@ -135,20 +163,13 @@ class Startup:
 
         return render.startup(matrix, int(page))
 
-class Tech:
+class Tech(Common):
     def __init__(self):
 
         self.ip = '127.0.0.1'
 
         #self.product_db = ProductDb()
 
-    def notice_log(self, path, param):
-        ts=int(time.time())
-        d = datetime.datetime.fromtimestamp(ts)
-        timestamp = d.strftime("%Y-%m-%d %H:%M:%S")
-
-        config.logger.info("[%s][%s][%s][%s]" %(timestamp, self.ip, path, param))
-        
     def GET(self):
         #flash("success", """Welcome! Application code lives in app.py,
         #models in model.py, tests in test.py, and seed data in seed.py.""")
@@ -204,20 +225,13 @@ class Tech:
         return render.technology(matrix, int(page))
 
 
-class Think:
+class Think(Common):
     def __init__(self):
 
         self.ip = '127.0.0.1'
 
         #self.product_db = ProductDb()
 
-    def notice_log(self, path, param):
-        ts=int(time.time())
-        d = datetime.datetime.fromtimestamp(ts)
-        timestamp = d.strftime("%Y-%m-%d %H:%M:%S")
-
-        config.logger.info("[%s][%s][%s][%s]" %(timestamp, self.ip, path, param))
-        
     def GET(self):
         #flash("success", """Welcome! Application code lives in app.py,
         #models in model.py, tests in test.py, and seed data in seed.py.""")

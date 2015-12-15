@@ -73,12 +73,12 @@ class Startup:
 
         #self.product_db = ProductDb()
 
-    def notice_log(self):
+    def notice_log(self, path, param):
         ts=int(time.time())
         d = datetime.datetime.fromtimestamp(ts)
         timestamp = d.strftime("%Y-%m-%d %H:%M:%S")
 
-        config.logger.info("[%s][%s]" %(timestamp, self.ip))
+        config.logger.info("[%s][%s][%s][%s]" %(timestamp, self.ip, path, param))
         
     def GET(self):
         #flash("success", """Welcome! Application code lives in app.py,
@@ -86,13 +86,8 @@ class Startup:
         self.ip = web.ctx['ip']
         path = web.ctx['path']
         param = web.input()
-        config.logger.info("param:%s" %(param))
-        config.logger.info("path:%s" %(path))
 
-       # print "path is:%s" %(path)
-        #ret = self.get_env()
-
-        self.notice_log()
+        self.notice_log("path:%s" %(path), "param:%s" %(param))
         
         path_vec = path.split('/')
         if len(path_vec) < 2:
@@ -118,7 +113,7 @@ class Startup:
 
         matrix = []
         
-        num_in_row = 3
+        num_in_row = 2
         cur_num = 0
 
         view_row = []
@@ -147,12 +142,12 @@ class Tech:
 
         #self.product_db = ProductDb()
 
-    def notice_log(self):
+    def notice_log(self, path, param):
         ts=int(time.time())
         d = datetime.datetime.fromtimestamp(ts)
         timestamp = d.strftime("%Y-%m-%d %H:%M:%S")
 
-        config.logger.info("[%s][%s]" %(timestamp, self.ip))
+        config.logger.info("[%s][%s][%s][%s]" %(timestamp, self.ip, path, param))
         
     def GET(self):
         #flash("success", """Welcome! Application code lives in app.py,
@@ -160,10 +155,8 @@ class Tech:
         self.ip = web.ctx['ip']
         path = web.ctx['path']
         param = web.input()
-        config.logger.info("param:%s" %(param))
-        config.logger.info("path:%s" %(path))
 
-        self.notice_log()
+        self.notice_log("path:%s" %(path), "param:%s" %(param))
         
         path_vec = path.split('/')
         category = 10
@@ -174,16 +167,12 @@ class Tech:
         page = None
         style = None
         if len(param) > 0:
-            print "--------------------"
             if 'page' in param:
                 page = param['page']
             if 'style' in param:
                 style = param['style']
 
         dr = data_read.DataReader()
-        print 'category:%s' %(category)
-        print 'style:%s' %(style)
-        print 'page:%s' %(page)
 
         if None == page or 0==int(page):
             page = 1
@@ -192,7 +181,7 @@ class Tech:
 
         matrix = []
         
-        num_in_row = 3
+        num_in_row = 2
         cur_num = 0
 
         view_row = []
@@ -210,7 +199,6 @@ class Tech:
             cur_num = cur_num + 1
 
         if len(view_row) !=  0:
-            print view_row
             matrix.append(view_row)
 
         return render.technology(matrix, int(page))
@@ -223,12 +211,12 @@ class Think:
 
         #self.product_db = ProductDb()
 
-    def notice_log(self):
+    def notice_log(self, path, param):
         ts=int(time.time())
         d = datetime.datetime.fromtimestamp(ts)
         timestamp = d.strftime("%Y-%m-%d %H:%M:%S")
 
-        config.logger.info("[%s][%s]" %(timestamp, self.ip))
+        config.logger.info("[%s][%s][%s][%s]" %(timestamp, self.ip, path, param))
         
     def GET(self):
         #flash("success", """Welcome! Application code lives in app.py,
@@ -236,13 +224,11 @@ class Think:
         self.ip = web.ctx['ip']
         path = web.ctx['path']
         param = web.input()
-        config.logger.info("param:%s" %(param))
-        config.logger.info("path:%s" %(path))
 
        # print "path is:%s" %(path)
         #ret = self.get_env()
 
-        self.notice_log()
+        self.notice_log("path:%s" %(path), "param:%s" %(param))
         
         path_vec = path.split('/')
         if len(path_vec) < 2:
@@ -268,7 +254,7 @@ class Think:
 
         matrix = []
         
-        num_in_row = 3
+        num_in_row = 2
         cur_num = 0
 
         view_row = []

@@ -10,6 +10,7 @@ class DataReader:
         self.sub_category_only_sql = 'SELECT  product_name,product_img, product_link,static_weight FROM product  JOIN product_sub_category ON product.id=product_sub_category.product_id and category=%s and product_sub_category.sub_category=%s'
         self.style_only_sql = 'SELECT product_name,product_img, product_link,static_weight FROM product LEFT JOIN product_style ON product.id=product_style.product_id and  category=%s  and product_style.style=%s'
         self.sub_category_and_style_sql = 'SELECT product_name,product_img, product_link,static_weight FROM product LEFT JOIN product_sub_category ON product.id=product_sub_category.product_id and  category=%s and product_sub_category.sub_category=%s LEFT JOIN product_style on product.id=product_style.product_id and product_style.style=%s'
+        self.page_count = 6
 
     def get_main_category(self, category):
         ##main category is less than 100
@@ -24,8 +25,8 @@ class DataReader:
             page = 1
 
         length = len(rows)
-        beg = (int(page) - 1) * 30
-        end = int(page) * 30
+        beg = (int(page) - 1) * self.page_count
+        end = int(page) * self.page_count
 
 
         if end > len(rows):

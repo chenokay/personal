@@ -6,8 +6,8 @@ import web
 class DataReader:
     def __init__(self):
         self.db = web.database(dbn='mysql', user='root', pw='bin729830', db='personal_page', host='127.0.0.1', port=3306)
-        self.main_category_sql = 'SELECT product_name,product_img, product_link,static_weight FROM product where category=%s'
-        self.sub_category_only_sql = 'SELECT  product_name,product_img, product_link,static_weight FROM product  JOIN product_sub_category ON product.id=product_sub_category.product_id and category=%s and product_sub_category.sub_category=%s'
+        self.main_category_sql = 'SELECT product_name,product_img, product_link,static_weight FROM product where category=%s order by dt desc'
+        self.sub_category_only_sql = 'SELECT  product_name,product_img, product_link,static_weight FROM product  JOIN product_sub_category ON product.id=product_sub_category.product_id and category=%s and product_sub_category.sub_category=%s order by dt desc'
         self.style_only_sql = 'SELECT product_name,product_img, product_link,static_weight FROM product LEFT JOIN product_style ON product.id=product_style.product_id and  category=%s  and product_style.style=%s'
         self.sub_category_and_style_sql = 'SELECT product_name,product_img, product_link,static_weight FROM product LEFT JOIN product_sub_category ON product.id=product_sub_category.product_id and  category=%s and product_sub_category.sub_category=%s LEFT JOIN product_style on product.id=product_style.product_id and product_style.style=%s'
         self.page_count = 6
